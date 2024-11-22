@@ -1,12 +1,19 @@
 import express from "express";
 import multer from "multer";
+import cors from "cors"
 import { atualizarNovoPost, listarTodosPosts, postarNovoPost, uploadImagem } from "../controllers/postController.js"; //lembrar de colocar o .js
+
+const corsOptions = {
+    origin: "http://localhost:8000",
+    optionsSuccessStatus: 200
+}
 
 const upload = multer({dest: "./uploads"})
 
 const routes = (app) => {
     // Middleware para interpretar dados JSON nas requisições
     app.use(express.json());
+    app.use(cors(corsOptions))
     
     // Rota para recuperar todos os posts (GET /posts)
     app.get("/posts", listarTodosPosts);
